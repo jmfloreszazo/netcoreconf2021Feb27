@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
@@ -17,9 +14,11 @@ namespace frontend.Pages
             _logger = logger;
         }
 
-        public void OnGet()
-        {
+        public WeatherForecast[] Forecasts { get; set; }
 
+        public async Task OnGet([FromServices] WeatherClient client)
+        {
+            Forecasts = await client.GetWeatherAsync();
         }
     }
 }
